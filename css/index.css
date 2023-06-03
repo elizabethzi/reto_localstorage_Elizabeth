@@ -1,0 +1,150 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+body{ 
+    --beige: #faeee7;
+    --rosa-fuerte:#ff8ba7;
+    --rosa:#ffc6c7;
+    --negro:#33272a;
+    --gris:#594a4e;
+    --blanco: #fffffe;
+    --verde:#c3f0ca;
+    background-color: var(--beige);
+    color: var(--negro);
+   justify-content:center;
+   align-items: center;
+   margin-top: 10%;
+  
+ 
+  
+  
+}
+
+.div-1{
+width: 240px;
+height: auto;
+background-color: var(--blanco);
+border: none;
+float: left;
+margin-left: 35%;
+text-align: center;
+padding: 10px;
+border-radius: 5px;
+box-shadow: 10px 10px 100px 5px #ffc6c7;
+
+
+
+}
+
+.div-2{
+border: 2px solid var(--rosa-fuerte);
+border-radius: 5px;
+float: right;
+padding: 13px 15px;
+width: 250px;
+height: auto;
+background-color: var(--rosa);
+margin-right: 35%;
+
+
+
+}
+
+h2{
+font-size: 27.5px;
+justify-content: center;
+align-items: center;
+display: flex;
+margin:20px 0;
+}
+
+h2 span{
+    border-bottom: 2px solid var(--beige);
+    
+}
+
+.boton{
+margin: 10px;
+background-color: var(--rosa);
+border: none;
+width:100px;
+height: 30px;
+font-weight: 600;
+border-radius: 3px;
+cursor: pointer;
+
+transition: 0.3s ease-in-out;
+}
+
+
+
+
+.boton:hover {
+    color: var(--blanco);
+    background-color: var(--rosa-fuerte);
+  }
+
+.tareas{
+height: 20px;
+width: 210px;
+margin: 10px;
+padding-left: 5px;
+border-top: none;
+border-left: none;
+border-right: none;
+border-color: var(--rosa);
+color: var(--negro);
+font-weight: 600;
+
+}
+.tareas:focus{
+    border-color: var(--rosa-fuerte);
+    outline: none;
+}
+
+
+.tareas:focus::placeholder{
+color: var(--gris);
+}
+
+.swal2-modal{
+    background-color: var(--blanco);
+    width: 350px;
+}
+
+.swal2-confirm.swal2-styled{
+    background-color: var(--verde);
+    color: var(--negro);
+    font-weight: 700;
+   border: none;
+
+
+}
+
+.swal2-modal .swal2-styled:focus {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.lista{
+margin:0;
+}
+
+.botonEliminar{
+    background-color: var(--rosa-fuerte);
+    border:none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px 1px;
+    font-weight: 700;
+margin-left: 5px;
+float: right;
+
+}
+
+li{
+    padding: 5px;
+}

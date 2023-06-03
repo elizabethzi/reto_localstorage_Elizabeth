@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<link rel="stylesheet" href="css/index.css">
+    
+<title>Tareas</title>
+</head>
+<body>
+    
+    <div class="div-1">
+       <div>
+
+       <input type="text" class="tareas" id="tareas" placeholder="Agrega una tarea">
+        <br/>
+        <button type="submit" id="boton" class="boton" onclick="Enviar()">Guardar</button>
+    </div> 
+    </div>
+
+    <div class="div-2">
+        
+        <h2><span>Tareas</span></h2>
+  
+        <ul id="lista" class="lista">
+
+        </ul>
+  
+    </div>
+
+    <script src="js/index.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+</body>
+</html>
