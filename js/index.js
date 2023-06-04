@@ -155,8 +155,8 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // Evento que se ejecuta cuando se presiona una tecla en el input
     input.addEventListener("keydown", function(event) {
-      // Verificar si la tecla presionada es Enter (codigo 13)
-      if (event.keyCode === 13) {
+      // Verificar si la tecla presionada es Enter 
+      if (event.key == "Enter") {
         const inputValue = event.target.value.trim();
         event.preventDefault();
   
