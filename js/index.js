@@ -1,143 +1,185 @@
 //Funcion validaciones
-function Validacion(){
+
+function Validacion() {
+    // Obtener el valor del input con el id tareas
     let tareas = document.getElementById('tareas').value;
 
-    //Variable que abarca solo letras
+    // Expresión que representa cualquier carácter que no sea una letra o espacio
     var regex = /[^a-zA-Z\s]/;
 
-    //Si el input esta vacio, pide agregar caracteres
-    if(tareas == ""){
-        Swal.fire({ title: "Agrega una tarea",
-        icon: 'warning',
-        confirmButtonColor: '#c3f0ca', type: "success"});
+    // Si el input esta vacio, muestra un mensaje de alerta y arroja false
+    if (tareas == "") {
+        Swal.fire({
+            title: "Agrega una tarea",
+            icon: 'warning',
+            confirmButtonColor: '#c3f0ca',
+            type: "success"
+        });
         return false;
-
-    }else if(regex.test(tareas)){ //Se realiza la comparacion de datos ingresados en el input con la variable regex gracias al metodo test para verificar si los caracteres son letras o no
-        Swal.fire({ title: "No puedes agregar números o caracteres especiales",
-        icon: 'error'}); 
+    } else if (regex.test(tareas)) {
+        // Si el input ingresa caracteres que no son letras o espacios, arroja false y muestra alerta
+        Swal.fire({
+            title: "No puedes agregar números o caracteres especiales",
+            icon: 'error'
+        });
         return false;
-    }else if(tareas.length <3){ //Se verifica el número de caracteres, de ser menor a tres, arroja false
-        Swal.fire({title:"La tarea es muy corta", text:"¡Agrega mas detalles!", icon:'info'});
+    } else if (tareas.length < 3) {
+        // Si el campo de entrada tiene menos de 3 caracteres, muestra una alerta y arroja false
+        Swal.fire({
+            title: "La tarea es muy corta",
+            text: "¡Agrega más detalles!",
+            icon: 'info'
+        });
         return false;
     }
+
+    // Si ninguna de las condiciones anteriores se cumple, se devuelve true, lo que indica que la validacion es exitosa
     return true;
 }
 
-//Funcion
-function leerTarea(){
+// Funcion para leer las tareas almacenadas en localStorage y mostrarlas en el html
+function leerTarea() {
     let listaTarea;
-    if(localStorage.getItem('listaTarea') == null){
-        listaTarea=[];
-    }listaTarea=JSON.parse(localStorage.getItem('listaTarea'));
 
-    var html= ""; 
+    // Verificar si hay datos almacenados en localStorage con la clave listaTarea
+    if (localStorage.getItem('listaTarea') == null) {
+        // Si no hay datos, inicializar la variable listaTarea como un array vacio
+        listaTarea = [];
+    }
+    // Obtener los datos almacenados en localStorage y asignarlos a la variable listaTarea
+    listaTarea = JSON.parse(localStorage.getItem('listaTarea'));
 
-    listaTarea.forEach(function(element, index){
-       
-        html +='<li>' + element.tareas + '<button onclick="eliminarTarea('+ index +')" class="botonEliminar" id="botonEliminar"><i class="bi bi-trash3-fill"></i></button></li>';
-       
-        
+    //inicializar variable html
+    var html = "";
+
+    // Recorrer cada elemento del array listaTarea utilizando forEach
+    listaTarea.forEach(function(element, index) {
+        // html concatenando el <li>, boton de eliminar 
+        html += '<li>' + element.tareas + '<button onclick="eliminarTarea(' + index + ')" class="botonEliminar" id="botonEliminar"><i class="bi bi-trash3-fill"></i></button></li>';
     });
-document.querySelector('#lista').innerHTML = html;
+
+    // Insertar el html generado en el elemento con el id lista
+    document.querySelector('#lista').innerHTML = html;
 }
 
+// Ejecutar la funcion leerTarea cuando el documento se haya cargado completamente
 document.onload = leerTarea();
 
-//Funcion boton
-function Enviar(){
-    if(Validacion() == true){
+
+
+// Funcion para enviar una tarea
+function Enviar() {
+    // Verificar si la validacion es exitosa llamando a la función Validacion()
+    if (Validacion() == true) {
+        // Obtener el valor del inputcon el id tarea
         let tareas = document.getElementById('tareas').value;
 
         var listaTarea;
-        if(localStorage.getItem('listaTarea') == null){
-listaTarea= []
-        }else{
-            listaTarea=JSON.parse(localStorage.getItem('listaTarea'));
+
+        // Verificar si hay datos almacenados en localStorage con la clave listaTarea
+        if (localStorage.getItem('listaTarea') == null) {
+            // Si no hay datos, inicializar la variable listaTarea como un array vacio
+            listaTarea = [];
+        } else {
+            // Obtener los datos almacenados en localStorage y asignarlos a la variable listaTarea
+            listaTarea = JSON.parse(localStorage.getItem('listaTarea'));
         }
 
+        // Agregar la nueva tarea al array listaTarea
         listaTarea.push({
             tareas: tareas
         });
-        localStorage.setItem('listaTarea', JSON.stringify(listaTarea));
-    
 
+        // Guardar el array actualizado en localStorage, convirtiendo a formato JSON
+        localStorage.setItem('listaTarea', JSON.stringify(listaTarea));
+
+        // Actualizar la lista de tareas en el html llamando a la funcion leerTarea()
         leerTarea();
 
-        document.getElementById('tareas').value= "";
+        // Limpiar el input estableciendo su valor a vacio
+        document.getElementById('tareas').value = "";
     }
 }
 
 
-function eliminarTarea(index){
+
+
+// Funcion para eliminar una tarea
+function eliminarTarea(index) {
     let listaTarea;
-    
 
-    if(localStorage.getItem('listaTarea') == null){
-listaTarea = []
-    }else{
-        listaTarea=JSON.parse(localStorage.getItem('listaTarea'));
+    // Verificar si hay datos almacenados en localStorage con la clave listaTarea
+    if (localStorage.getItem('listaTarea') == null) {
+        // Si no hay datos, inicializar la variable listaTarea como un array vacio
+        listaTarea = [];
+    } else {
+        // Obtener los datos almacenados en localStorage y asignarlos a la variable listaTarea
+        listaTarea = JSON.parse(localStorage.getItem('listaTarea'));
     }
 
-  
-
-        Swal.fire({
-            
-            text: "¿Quieres eliminar esta tarea?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: "Sí, eliminar",
-            cancelButtonText: "Cancelar"
-           
-        })
-        .then(resultado => {
-            if (resultado.value) {
-                listaTarea.splice(index, 1);
-                localStorage.setItem('listaTarea', JSON.stringify(listaTarea));
-                leerTarea();
-                Swal.fire({
-                    title: "Tarea eliminada",
-                    confirmButtonText: "Ok",
-                    icon: 'success',
-                });
-              return true;
-            } else {
-                return false;
-               
-            }
-            
-        });
-   
-    
-
-
-
-
-
-
+    // Mostrar una confirmacion al usuario utilizando la libreria sweet alert
+    Swal.fire({
+        text: "¿Quieres eliminar esta tarea?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+    })
+    .then(resultado => {
+        if (resultado.value) {
+            // Si el usuario confirma la eliminacion, se elimina la tarea del array listaTarea
+            listaTarea.splice(index, 1);
+            // Guardar el array actualizado en localStorage, convirtiendo a formato JSON
+            localStorage.setItem('listaTarea', JSON.stringify(listaTarea));
+            // Actualizar la lista de tareas en el html llamando a la funcion leerTarea()
+            leerTarea();
+            // Mostrar un mensaje de exito utilizando sweet alert
+            Swal.fire({
+                title: "Tarea eliminada",
+                confirmButtonText: "Ok",
+                icon: 'success',
+            });
+            // Devolver true para indicar que la eliminacion se hizo correctamente
+            return true;
+        } else {
+            // Si el usuario cancela la eliminacióon, se devuelve false
+            return false;
+        }
+    });
 }
 
-//Función evento para guardar datos del input con el Enter
+
+// Evento 
 document.addEventListener("DOMContentLoaded", function() {
     const input = document.getElementById("tareas");
   
+    // Evento que se ejecuta cuando se presiona una tecla en el input
     input.addEventListener("keydown", function(event) {
+      // Verificar si la tecla presionada es Enter (codigo 13)
       if (event.keyCode === 13) {
         const inputValue = event.target.value.trim();
         event.preventDefault();
+  
+        // Verificar si el numero de caracteres del input es mayor a 0, de ser asi, activa la funcion Enviar()
         if (inputValue.length > 0) {
           introEventHandler(inputValue);
           Enviar();
-        
-        } else{
-            Swal.fire({ title: "Agrega una tarea",
+        } else {
+          // De lo contrario mostrara una alerta indicando que se debe agregar una tarea
+          Swal.fire({
+            title: "Agrega una tarea",
             icon: 'warning',
-            confirmButtonColor: '#c3f0ca', type: "success"});
-            return false;
+            confirmButtonColor: '#c3f0ca',
+            type: "success"
+          });
+          return false;
         }
       }
     });
   });
-
-  function introEventHandler(){};
+  
+  // Funcion vacia llamada introEventHandler
+  function introEventHandler() {};
+  
     
   
