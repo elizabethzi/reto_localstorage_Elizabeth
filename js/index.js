@@ -1,4 +1,4 @@
-//funcion mela
+
 function Validacion(){
     let tareas = document.getElementById('tareas').value;
 
@@ -11,10 +11,10 @@ function Validacion(){
         return false;
     }else if(regex.test(tareas)){
         Swal.fire({ title: "No puedes agregar números o caracteres especiales",
-        icon: 'error', confirmButtonColor: '#c3f0ca'}); 
+        icon: 'error'}); 
         return false;
     }else if(tareas.length <3){
-        Swal.fire({title:"La tarea es muy corta", text:"¡Agrega mas detalles!", icon:'info',  confirmButtonColor: '#c3f0ca', type: "success"});
+        Swal.fire({title:"La tarea es muy corta", text:"¡Agrega mas detalles!", icon:'info'});
         return false;
     }
     return true;
@@ -30,9 +30,9 @@ function leerTarea(){
 
     listaTarea.forEach(function(element, index){
        
-        html +='<li>' + element.tareas + '<button onclick="eliminarTarea('+ index +')" class="botonEliminar" id="botonEliminar">x</button></li>';
+        html +='<li>' + element.tareas + '<button onclick="eliminarTarea('+ index +')" class="botonEliminar" id="botonEliminar"><i class="bi bi-trash3-fill"></i></button></li>';
        
-       
+        
     });
 document.querySelector('#lista').innerHTML = html;
 }
@@ -72,11 +72,42 @@ listaTarea = []
     }else{
         listaTarea=JSON.parse(localStorage.getItem('listaTarea'));
     }
-listaTarea.splice(index, 1);
 
-localStorage.setItem('listaTarea', JSON.stringify(listaTarea));
+  
 
-leerTarea();
+        Swal.fire({
+            
+            text: "¿Quieres eliminar esta tarea?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+           
+        })
+        .then(resultado => {
+            if (resultado.value) {
+                listaTarea.splice(index, 1);
+                localStorage.setItem('listaTarea', JSON.stringify(listaTarea));
+                leerTarea();
+                Swal.fire({
+                    title: "Tarea eliminada",
+                    confirmButtonText: "Ok",
+                    icon: 'success',
+                });
+              return true;
+            } else {
+                return false;
+               
+            }
+            
+        });
+   
+    
+
+
+
+
+
 
 }
 
