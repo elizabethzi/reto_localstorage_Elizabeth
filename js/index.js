@@ -1,4 +1,3 @@
-
 var listaTarea;
 
 funcion1 = () => {
@@ -84,18 +83,6 @@ function Validacion() {
     let tareas = document.getElementById('tareas').value;
     let regex = /[^a-zA-Z\s]/;
 
-
-//Funcion validaciones
-
-function Validacion() {
-    // Obtener el valor del input con el id tareas
-    let tareas = document.getElementById('tareas').value;
-
-    // Expresión que representa cualquier carácter que no sea una letra o espacio
-    var regex = /[^a-zA-Z\s]/;
-
-    // Si el input esta vacio, muestra un mensaje de alerta y arroja false
-
     if (tareas == "") {
         Swal.fire({
             title: "Agrega una tarea",
@@ -106,20 +93,12 @@ function Validacion() {
         return false;
     } else if (regex.test(tareas)) {
 
-
-
-        // Si el input ingresa caracteres que no son letras o espacios, arroja false y muestra alerta
-
         Swal.fire({
             title: "No puedes agregar números o caracteres especiales",
             icon: 'error'
         });
         return false;
     } else if (tareas.length < 3) {
-
-
-
-        // Si el campo de entrada tiene menos de 3 caracteres, muestra una alerta y arroja false
 
         Swal.fire({
             title: "La tarea es muy corta",
@@ -128,9 +107,7 @@ function Validacion() {
         });
         return false;
     }
-
     return true;
-}
 }
 
 // document.addEventListener("DOMContentLoaded", function () {
@@ -161,4 +138,5 @@ function Validacion() {
 // });
 
 // function introEventHandler() { };
+
 
